@@ -1,0 +1,47 @@
+<br><br>
+<div class="input-container">
+  <input type="text" [(ngModel)]="searchTerm" placeholder="Ingresa un término de búsqueda" (keyup.enter)="onSearch()">
+  <button (click)="onSearch()">Buscar</button>
+</div>
+
+
+<div *ngIf="loading" class="msj">
+  <h2>Cargando...</h2>
+</div>
+<div *ngIf="books.length === 0 && !null" class="msj">
+  <h3>Desliza para ver los resultados de tu búsqueda  <span></span></h3><br>
+  <hr class="hr-divider">
+</div>
+
+
+<div class="banner-container"><br>
+  <img src="https://concepto.de/wp-content/uploads/2016/04/leer.jpg" alt="Banner">
+  <div class="banner-text">
+    <h1>Para viajar lejos no hay nada mejor que un libro</h1>
+    <p>Realiza una búsqueda para encontrar tus libros favoritos</p>
+  </div>
+</div><br><br><br><br>
+
+<div *ngIf="books.length > 0" class="row card-container">
+  <div class="col" *ngFor="let book of books">
+    <div class="card">
+      <img class="card-image" [src]="book.volumeInfo.imageLinks?.thumbnail" alt="Portada del libro">
+      <div class="card-content">
+        <h3 class="card-title">{{ book.volumeInfo.title }}</h3>
+        <p class="card-authors">{{ book.volumeInfo.authors?.join(', ') }}</p>
+    
+        <a [routerLink]="['/detail', book.volumeInfo.title]">Ver detalles</a>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="loading" class="msj">
+  <h2>Cargando...</h2>
+</div>
+<div *ngIf="books.length === 0 && !loading" class="msj">
+  <h3>Aquí están tus resultados de búsqueda  <span class="arrow-down"></span></h3>
+  <hr class="hr-divider">
+</div><br><br>
+
